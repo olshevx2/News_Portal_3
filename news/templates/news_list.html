@@ -1,0 +1,33 @@
+{% load my_filters %}
+<!DOCTYPE html>
+<html>
+<head><title>Новости</title></head>
+<body>
+    <h1>Все новости</h1>
+    <a href="{% url 'news_search' %}">Искать новости</a>
+    <a href="{% url 'news_create' %}" class="btn btn-success">Создать новость</a>
+    <a href="{% url 'article_create' %}" class="btn btn-success">Создать статью</a>
+    
+    {% for post in news %}
+        <div>
+            <h3>{{ post.title|censor }}</h3>
+            <p>{{ post.created_at|date:"d.m.Y" }} — {{ post.text|truncatechars:20|censor }}</p>
+        </div>
+    {% endfor %}
+
+    <!-- Пагинация -->
+    <div>
+        {% if news.has_previous %}
+            <a href="?page=1">Первая</a>
+            <a href="?page={{ news.previous_page_number }}">Назад</a>
+        {% endif %}
+        
+        Страница {{ news.number }} из {{ news.paginator.num_pages }}
+        
+        {% if news.has_next %}
+            <a href="?page={{ news.next_page_number }}">Вперед</a>
+            <a href="?page={{ news.paginator.num_pages }}">Последняя</a>
+        {% endif %}
+    </div>
+</body>
+</html>

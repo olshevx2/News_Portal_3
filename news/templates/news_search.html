@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head><title>Поиск</title></head>
+<body>
+    <h1>Поиск новостей</h1>
+    <form method="get">
+        {{ filter.form.as_p }}
+        <button type="submit">Искать</button>
+    </form>
+    <hr>
+    {% for post in filter.qs %}
+        <div>
+            <h3>{{ post.title }}</h3>
+            <p>{{ post.created_at|date:"d.m.Y" }}</p>
+        </div>
+    {% endfor %}
+</body>
+</html>

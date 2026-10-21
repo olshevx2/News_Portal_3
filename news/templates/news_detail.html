@@ -1,0 +1,15 @@
+{% load my_filters %}
+<!DOCTYPE html>
+<html>
+<head><title>{{ post.title }}</title></head>
+<body>
+    <h1>{{ post.title|censor }}</h1>
+    <p>Дата загрузки: {{ post.created_at|date:"d.m.Y" }}</p>
+    <p>{{ post.text|censor }}</p>
+
+    <hr>
+    <a href="{% url 'news_update' post.pk %}">Редактировать</a> | 
+    <a href="{% url 'news_delete' post.pk %}">Удалить</a>
+
+</body>
+</html>
